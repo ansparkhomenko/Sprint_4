@@ -18,28 +18,45 @@ public class ScooterOrderTest extends BaseTest {
     private final String phoneNumber;
     private final String comment;
 
+
     public ScooterOrderTest(String name, String surName, String phoneNumber, String comment) {
         this.name = name;
         this.surName = surName;
         this.phoneNumber = phoneNumber;
         this.comment = comment;
+
     }
 
     @Parameterized.Parameters(name = "Клиент {index}: Имя: {0} {1}")
     public static Object[][] getData() {
         return new Object[][]{
                 {"Майкл", "Джексон", "89255286796", "Позвонить за 5 минут"},
-                {"Джон", "Коннор", "89035214577", "Оставить у входа"},
-                {"Бритни", "Спирс", "89261234568", "Стою на автобусной остоновке"}
+                {"John", "Connor", "89035214577", "Hello"},
+                {"Александр", "  ", "+79261234568", "Стою на автобусной остоновке"}
         };
     }
 
     @Test
-    public void scooterOrder() {
+    public void scooterOrderWithTopButton() {
         driver.get(BASE_URL);
         new MainPage()
                 .acceptCookie()
-                .orderButtonClick()
+                .orderTopButtonClick()
+                .fillOrderDataField(name, surName, phoneNumber);
+
+        boolean actual = new RentPage()
+                .fillRentDataFields(comment)
+                .statusButtonIsDisplayed();
+
+        assertTrue("Заказ не оформлен", actual);
+    }
+
+    @Test
+    public void scooterOrderWithMidButton() {
+        driver.get(BASE_URL);
+        new MainPage()
+                .acceptCookie()
+                .orderMidButtonClick()
                 .fillOrderDataField(name, surName, phoneNumber);
 
         boolean actual = new RentPage()

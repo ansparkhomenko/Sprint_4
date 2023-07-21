@@ -13,7 +13,10 @@ public class MainPage extends BasePage {
     private By acceptCookie = By.xpath(".//button[@id='rcc-confirm-button']");
 
     //Кнопка "Заказать" в верху страницы
-    private By orderButton = By.xpath(".//button[@class='Button_Button__ra12g']");
+    private By orderTopButton = By.xpath(".//button[@class='Button_Button__ra12g']");
+
+    //Кнопка "Заказать" в середине страницы
+    private By orderMidButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
     //Общий локатор для вопросов
     private By questionButton = By.xpath(".//div[@class='accordion__button']");
@@ -32,8 +35,16 @@ public class MainPage extends BasePage {
     /**
      * Метод для нажатия на кнопку заказа вверху страницы
      */
-    public OrderPage orderButtonClick() {
-        driver.findElement(orderButton).click();
+    public OrderPage orderTopButtonClick() {
+        driver.findElement(orderTopButton).click();
+        return new OrderPage();
+    }
+
+    /**
+     * Метод для нажатия на кнопку заказа в середине
+     */
+    public OrderPage orderMidButtonClick() {
+        driver.findElement(orderMidButton).click();
         return new OrderPage();
     }
 
